@@ -26,9 +26,6 @@ public class RoomCharge {
     @JoinColumn(name = "invoice_item_id")
     private InvoiceItem invoiceItem;
 
-    @ManyToOne
-    @JoinColumn(name = "server_id")
-    protected Server server;
 
 
 }

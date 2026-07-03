@@ -33,4 +33,14 @@ public class GuestController {
             @RequestParam(defaultValue = "10") int size){
         return ResponseEntity.ok(guestService.pageGuest(page,size));
     }
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id){
+        guestService.delete(id);
+        return ResponseEntity.ok().build();
+    }
+    @DeleteMapping("/delete/{gmail}")
+    public ResponseEntity<Void> deleteGmail(@PathVariable String gmail){
+        guestService.deleteGmail(gmail);
+        return ResponseEntity.ok().build();
+    }
 }

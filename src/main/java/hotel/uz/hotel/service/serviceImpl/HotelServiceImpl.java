@@ -3,9 +3,14 @@ package hotel.uz.hotel.service.serviceImpl;
 import hotel.uz.hotel.domain.Hotel;
 import hotel.uz.hotel.dto.request.HotelAddRequestDto;
 import hotel.uz.hotel.dto.request.HotelUpdateRequestDto;
+import hotel.uz.hotel.dto.response.HotelNamePageResponseDto;
 import hotel.uz.hotel.dto.response.HotelResponseDto;
 import hotel.uz.hotel.repository.HotelRepository;
 import hotel.uz.hotel.service.HotelService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -56,14 +61,16 @@ public class HotelServiceImpl implements HotelService {
     }
 
     @Override
-    public HotelResponseDto getName(String name) {
-        Hotel hotel = hotelRepository.findByName(name)
-                .orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND, "Hotel not found with name: " + name));
+    public HotelNamePageResponseDto<Hotel> getPageName(String name, int page, int size) {
 
-        return HotelResponseDto.builder()
-                .id(hotel.getId())
-                .name(hotel.getName())
-                .build();
+        Pageable pageable = PageRequest.of(page,size);
+        Page<Hotel> hotelPage = hotelRepository.findByNameContainingIgnoreCase(name,pageable);
+        return new HotelNamePageResponseDto<>(
+                hotelPage.getContent(),
+                hotelPage.getNumber(),
+                hotelPage.getTotalPages(),
+                hotelPage.getTotalElements(),
+                hotelPage.getSize());
     }
 
     @Override
@@ -79,10 +86,26 @@ public class HotelServiceImpl implements HotelService {
 
     @Override
     public void delete(Long id) {
-        Hotel hotel = hotelRepository.findById(Long.valueOf(id))
+        Hotel hotel = hotelRepository.findById(id)
                 .orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND, "Hotel not found with id: " + id));
 
         hotelRepository.delete(hotel);
+    }
+
+    @Override
+    public HotelNamePageResponseDto<Hotel> getHotel(int page, int size, String sortBy, String direction) {
+        Sort sort = direction.equalsIgnoreCase("desc")
+                ? Sort.by(sortBy).descending()
+                :Sort.by(sortBy).ascending();
+
+        Pageable pageable = PageRequest.of(page,size,sort);
+        Page<Hotel> hotelPage = hotelRepository.findAll(pageable);
+        return new HotelNamePageResponseDto<>(
+                hotelPage.getContent(),
+                hotelPage.getNumber(),
+                hotelPage.getTotalPages(),
+                hotelPage.getTotalElements(),
+                hotelPage.getSize());
     }
 
 

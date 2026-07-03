@@ -19,7 +19,6 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-
 public class Person {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -10,4 +10,5 @@ import lombok.Setter;
 public class HotelResponseDto {
     private Long id;
     private String name;
+
 }

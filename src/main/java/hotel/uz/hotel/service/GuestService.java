@@ -12,4 +12,8 @@ public interface GuestService {
     PersonResponseDto updateGuest(PersonUpdateRequestDto dto);
 
     PersonPageResponseDto<Person> pageGuest(int page, int size);
+
+    void delete(Long id);
+
+    void deleteGmail(String gmail);
 }

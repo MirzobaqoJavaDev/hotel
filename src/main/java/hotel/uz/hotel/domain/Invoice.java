@@ -28,4 +28,7 @@ public class Invoice {
     @JoinColumn(name = "room_booking_id")
     private RoomBooking roomBooking;
 
+    @OneToOne(mappedBy = "invoice",cascade = CascadeType.ALL,orphanRemoval = true)
+    private BillTransaction billTransaction;
+
 }

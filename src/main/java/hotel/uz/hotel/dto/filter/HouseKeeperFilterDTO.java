@@ -1,19 +1,18 @@
-package hotel.uz.hotel.dto.response;
+package hotel.uz.hotel.dto.filter;
 
 import hotel.uz.hotel.enums.AccountType;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-@Builder
-public class HouseKeeperResponseDto {
-    private Long id;
+public class HouseKeeperFilterDTO {
     private String name;
     private String email;
     private String phone;
     private AccountType accountType;
-    private AddressResponseDTO address;
-    private int totalRoomHouseKeeping;
+    private String city;
+    private int page = 0;
+    private int size = 10;
+    private String sortBy = "id";
 }

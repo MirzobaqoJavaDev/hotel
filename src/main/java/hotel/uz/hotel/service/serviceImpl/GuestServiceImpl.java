@@ -121,4 +121,28 @@ public class GuestServiceImpl implements GuestService {
         return new PersonPageResponseDto<>(content, page, size, totalElements, totalPage);
 
     }
+
+    @Override
+    public void delete(Long id) {
+        Person person = personRepository.findById(id)
+                .orElseThrow(()-> new RuntimeException("Guest not found"));
+
+        if (person.getAccountType().equals(AccountType.GUEST)){
+            personRepository.delete(person);
+        }else {
+            throw new RuntimeException("This people not equals guest");
+        }
+    }
+
+    @Override
+    public void deleteGmail(String gmail) {
+        Person person = personRepository.findByEmail(gmail)
+                .orElseThrow(()-> new RuntimeException("Person not found: "+gmail));
+        if (person.getAccountType().equals(AccountType.GUEST)){
+            personRepository.delete(person);
+        }else {
+            throw new RuntimeException("This people not equals guest");
+        }
+
+    }
 }

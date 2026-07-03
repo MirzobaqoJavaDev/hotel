@@ -85,13 +85,13 @@ public class AccountServiceImpl implements AccountService {
     public AccountPageHibernateResponseDto<Account> pageHibernate(int page, int size) {
         int firstResult =page*size;
 
-        TypedQuery<Account> query = entityManager.createQuery("select a from account a",Account.class);
+        TypedQuery<Account> query = entityManager.createQuery("select a from Account a",Account.class);
         query.setFirstResult(firstResult);
         query.setMaxResults(size);
 
         List<Account> content = query.getResultList();
 
-        Query countQuery = entityManager.createQuery("select count(a) from account a");
+        Query countQuery = entityManager.createQuery("select count(a) from Account a");
 
         long totalElements = (long) countQuery.getSingleResult();
 

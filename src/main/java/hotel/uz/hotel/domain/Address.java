@@ -11,7 +11,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Address {
-    private String streetAddress;
+    private String street;
     private String city;
     private String state;
     private String zipCode;

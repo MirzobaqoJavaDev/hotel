@@ -14,6 +14,11 @@ public class Amenity extends RoomCharge{
     private String name;
     private String description;
 
+    @ManyToOne
+    @JoinColumn(name = "server_id")
+    private Server server;
+    
+
 
 
 }

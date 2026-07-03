@@ -8,5 +8,6 @@ public enum AccountType {
     GUEST,
     MANAGER,
     RECEPTIONIST,
+    HOUSEKEEPER
 
 }

@@ -27,4 +27,8 @@ public class BillTransaction {
     @Enumerated(EnumType.STRING)
     private PaymentStatus status;
 
+    @OneToOne
+    @JoinColumn(name = "invoice_id")
+    private Invoice invoice;
+
 }
